@@ -1,4 +1,4 @@
-const CACHE = 'survey-devapp-v1.0.9';
+const CACHE = 'survey-devapp-v1.1.0';
 const SHELL = [
     '/',
     '/styles.css',
