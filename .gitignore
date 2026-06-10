@@ -1,0 +1,5 @@
+api/config.php
+uploads/
+.errors
+api/.errors
+.claude/

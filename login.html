@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3f3f3f">
+    <title>BCOS Site Survey — Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wdth,wght@87.5,100..900&display=swap');
+        :root {
+            --green: #c1ce41;
+            --green-dark: #727a27;
+            --dark: #3f3f3f;
+            --bg: #e8e8e8;
+            --white: #ffffff;
+            --border: #6a725d;
+            --text: #2f2f2f;
+            --text-muted: #666666;
+            --red: #af3e2a;
+            --radius: 4px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            height: 100%;
+            font-family: "Roboto", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+        .login-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 380px;
+            overflow: hidden;
+        }
+        .login-header {
+            background: var(--dark);
+            color: var(--white);
+            padding: 24px 24px 20px;
+            text-align: center;
+        }
+        .login-header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.04em; }
+        .login-header p  { font-size: 0.8rem; opacity: 0.6; margin-top: 4px; }
+        .login-body { padding: 24px; }
+        .field { margin-bottom: 18px; }
+        .field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .field input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            outline: none;
+            -webkit-appearance: none;
+            font-family: inherit;
+        }
+        .field input:focus { border-color: var(--green-dark); }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to bottom, rgba(140,153,48,1) 0%, rgba(193,206,65,1) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+        }
+        .btn-login:active { opacity: 0.85; }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            opacity: 0.4;
+        }
+
+        /* Google button */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 13px 14px;
+            background: var(--white);
+            color: #3c4043;
+            border: 2px solid #dadce0;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.15s, border-color 0.15s;
+            font-family: inherit;
+        }
+        .btn-google:hover  { background: #f8f9fa; border-color: #bdc1c6; }
+        .btn-google:active { background: #f1f3f4; }
+        .btn-google svg { flex-shrink: 0; }
+
+        /* Error / info messages */
+        .alert {
+            border-radius: var(--radius);
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .alert-error { background: #fdecea; border: 1px solid var(--red); color: var(--red); }
+
+        .dev-badge {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .dev-badge span {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #f9a825;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <h1>BCOS Site Survey</h1>
+            <p>Sign in to continue</p>
+        </div>
+        <div class="login-body">
+            <div class="alert alert-error" id="error-msg"></div>
+
+            <!-- Google sign-in -->
+            <a href="/api/google-auth.php" class="btn-google" id="btn-google">
+                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+                    <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+                    <path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+                    <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+                </svg>
+                Sign in with Google
+            </a>
+
+            <div class="divider">or</div>
+
+            <!-- Username / password -->
+            <form id="login-form">
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" autocapitalize="off" autocorrect="off" required>
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn-login">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <div class="dev-badge"><span>Development Environment</span></div>
+
+    <script>
+        // Map error codes from the OAuth callback to human-readable messages
+        const errorMessages = {
+            google_denied: 'Google sign-in was cancelled.',
+            no_code:       'Google did not return an authorisation code.',
+            invalid_state: 'Security check failed — please try again.',
+            token_failed:  'Could not exchange Google token. Please try again.',
+            no_email:      'Google did not provide an email address.',
+            no_account:    'Your Google account is not linked to a BCOS user. Contact your administrator.',
+        };
+
+        // Show error from ?err= query string (set by the OAuth callback)
+        const params  = new URLSearchParams(location.search);
+        const errCode = params.get('err');
+        if (errCode) {
+            const errEl = document.getElementById('error-msg');
+            errEl.textContent = errorMessages[errCode] || 'Sign-in failed — please try again.';
+            errEl.style.display = 'block';
+        }
+
+        // Username/password form
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const errEl = document.getElementById('error-msg');
+            errEl.style.display = 'none';
+            const btn = this.querySelector('button');
+            btn.textContent = 'Signing in…';
+            btn.disabled = true;
+
+            const fd = new FormData(this);
+            try {
+                const resp = await fetch('/api/login.php', { method: 'POST', body: fd, credentials: 'include' });
+                const data = await resp.json();
+                if (data.ok) {
+                    window.location.href = '/';
+                } else {
+                    errEl.textContent    = data.error || 'Login failed';
+                    errEl.style.display  = 'block';
+                    btn.textContent      = 'Sign In';
+                    btn.disabled         = false;
+                }
+            } catch (err) {
+                errEl.textContent   = 'Network error — please try again';
+                errEl.style.display = 'block';
+                btn.textContent     = 'Sign In';
+                btn.disabled        = false;
+            }
+        });
+
+        document.getElementById('username').focus();
+    </script>
+</body>
+</html>

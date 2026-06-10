@@ -1,0 +1,30 @@
+DirectoryIndex index.php
+
+# Service Worker must control the root scope
+<Files "sw.js">
+    Header set Service-Worker-Allowed "/"
+    Header set Cache-Control "no-store"
+</Files>
+
+# Never cache the app shell — forces SW update check on every visit
+<Files "index.php">
+    Header set Cache-Control "no-store"
+</Files>
+
+# Never cache the login page
+<Files "login.html">
+    Header set Cache-Control "no-store"
+</Files>
+
+# Allow CORS for manifest
+<Files "manifest.json">
+    Header set Access-Control-Allow-Origin "*"
+</Files>
+
+# Block direct browser access to PHP files inside /api/ — they must be fetched by JS
+<FilesMatch "\.php$">
+    Header set X-Robots-Tag "noindex, nofollow"
+</FilesMatch>
+
+# Protect uploads directory — no directory listing
+Options -Indexes
