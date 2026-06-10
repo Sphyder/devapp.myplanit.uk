@@ -10,7 +10,7 @@ if (empty($_SESSION['survey_user'])) {
     exit;
 }
 
-define('APP_VERSION', '1.0.7');
+define('APP_VERSION', '1.0.8');
 define('APP_ENV', 'development'); // LIVE DEPLOYMENT: change to 'production'
 
 $version = APP_VERSION;
@@ -25,13 +25,13 @@ $is_dev  = APP_ENV === 'development';
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BCOS">
     <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=<?= $version ?>">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=<?= $version ?>">
     <title>BCOS</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=<?= $version ?>">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=<?= $version ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png?v=<?= $version ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png?v=<?= $version ?>">
     <link rel="stylesheet" href="/styles.css?v=<?= $version ?>">
 </head>
 <body>
