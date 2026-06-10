@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#3f3f3f">
     <title>BCOS</title>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
@@ -102,8 +103,8 @@
             opacity: 0.4;
         }
 
-        /* Google button */
-        .btn-google {
+        /* OAuth buttons */
+        .btn-google, .btn-microsoft {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -120,10 +121,11 @@
             text-decoration: none;
             transition: background 0.15s, border-color 0.15s;
             font-family: inherit;
+            margin-bottom: 10px;
         }
-        .btn-google:hover  { background: #f8f9fa; border-color: #bdc1c6; }
-        .btn-google:active { background: #f1f3f4; }
-        .btn-google svg { flex-shrink: 0; }
+        .btn-google:hover, .btn-microsoft:hover  { background: #f8f9fa; border-color: #bdc1c6; }
+        .btn-google:active, .btn-microsoft:active { background: #f1f3f4; }
+        .btn-google svg, .btn-microsoft svg { flex-shrink: 0; }
 
         /* Error / info messages */
         .alert {
@@ -175,6 +177,17 @@
                 Sign in with Google
             </a>
 
+            <!-- Microsoft sign-in -->
+            <a href="/api/microsoft-auth.php" class="btn-microsoft" id="btn-microsoft">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 21 21">
+                    <rect x="0" y="0" width="9" height="9" fill="#f25022"/>
+                    <rect x="12" y="0" width="9" height="9" fill="#7fba00"/>
+                    <rect x="0" y="12" width="9" height="9" fill="#00a4ef"/>
+                    <rect x="12" y="12" width="9" height="9" fill="#ffb900"/>
+                </svg>
+                Sign in with Microsoft
+            </a>
+
             <div class="divider">or</div>
 
             <!-- Username / password -->
@@ -199,12 +212,15 @@
     <script>
         // Map error codes from the OAuth callback to human-readable messages
         const errorMessages = {
-            google_denied: 'Google sign-in was cancelled.',
-            no_code:       'Google did not return an authorisation code.',
-            invalid_state: 'Security check failed — please try again.',
-            token_failed:  'Could not exchange Google token. Please try again.',
-            no_email:      'Google did not provide an email address.',
-            no_account:    'Your Google account is not linked to a BCOS user. Contact your administrator.',
+            google_denied:   'Google sign-in was cancelled.',
+            no_code:         'Google did not return an authorisation code.',
+            invalid_state:   'Security check failed — please try again.',
+            token_failed:    'Could not exchange Google token. Please try again.',
+            no_email:        'Sign-in did not provide an email address.',
+            no_account:      'Your account is not linked to a BCOS user. Contact your administrator.',
+            ms_denied:       'Microsoft sign-in was cancelled.',
+            ms_no_code:      'Microsoft did not return an authorisation code.',
+            ms_token_failed: 'Could not complete Microsoft sign-in. Please try again.',
         };
 
         // Show error from ?err= query string (set by the OAuth callback)

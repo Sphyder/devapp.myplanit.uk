@@ -10,7 +10,7 @@ if (empty($_SESSION['survey_user'])) {
     exit;
 }
 
-define('APP_VERSION', '1.0.0');
+define('APP_VERSION', '1.0.1');
 define('APP_ENV', 'development'); // LIVE DEPLOYMENT: change to 'production'
 
 $version = APP_VERSION;
@@ -69,6 +69,23 @@ $is_dev  = APP_ENV === 'development';
         const APP_VERSION = '<?= $version ?>';
         const APP_ENV     = '<?= APP_ENV ?>';
         const IS_DEV      = APP_ENV === 'development';
+
+        // Force reload when a new service worker takes control (update was waiting)
+        if ('serviceWorker' in navigator) {
+            let reloading = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!reloading) { reloading = true; window.location.reload(); }
+            });
+        }
+
+        // On returning to the app, check if server version differs — reload if stale
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState !== 'visible') return;
+            fetch('/api/version.php?t=' + Date.now())
+                .then(r => r.json())
+                .then(d => { if (d.version && d.version !== APP_VERSION) window.location.reload(); })
+                .catch(() => {});
+        });
     </script>
     <script src="/db.js?v=<?= $version ?>"></script>
     <script src="/sync.js?v=<?= $version ?>"></script>
