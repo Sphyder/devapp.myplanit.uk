@@ -6,6 +6,7 @@ const SHELL = [
     '/db.js',
     '/sync.js',
     '/manifest.json',
+    '/favicon.ico',
 ];
 
 self.addEventListener('install', e => {

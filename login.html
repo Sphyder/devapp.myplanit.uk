@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#3f3f3f">
-    <title>BCOS Site Survey — Login</title>
+    <title>BCOS</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wdth,wght@87.5,100..900&display=swap');
         :root {
@@ -154,7 +158,7 @@
 <body>
     <div class="login-card">
         <div class="login-header">
-            <h1>BCOS Site Survey</h1>
+            <h1>BCOS</h1>
             <p>Sign in to continue</p>
         </div>
         <div class="login-body">
@@ -184,6 +188,9 @@
                     <input type="password" id="password" name="password" autocomplete="current-password" required>
                 </div>
                 <button type="submit" class="btn-login">Sign In</button>
+                <p style="text-align:center;margin-top:14px;font-size:0.85rem">
+                    <a href="/forgot-password.php" style="color:var(--green-dark);font-weight:600;text-decoration:none">Forgot password?</a>
+                </p>
             </form>
         </div>
     </div>
@@ -202,6 +209,17 @@
 
         // Show error from ?err= query string (set by the OAuth callback)
         const params  = new URLSearchParams(location.search);
+
+        // Show success message after password reset
+        if (params.get('msg') === 'password_changed') {
+            const errEl = document.getElementById('error-msg');
+            errEl.textContent = 'Password updated — you can now sign in with your email and new password.';
+            errEl.style.display = 'block';
+            errEl.style.background = '#f0f4e3';
+            errEl.style.borderColor = '#727a27';
+            errEl.style.color = '#727a27';
+        }
+
         const errCode = params.get('err');
         if (errCode) {
             const errEl = document.getElementById('error-msg');

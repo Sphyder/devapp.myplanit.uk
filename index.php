@@ -23,10 +23,14 @@ $is_dev  = APP_ENV === 'development';
     <meta name="theme-color" content="#3f3f3f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Site Survey">
+    <meta name="apple-mobile-web-app-title" content="BCOS">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
-    <title>BCOS Site Survey</title>
+    <title>BCOS</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="stylesheet" href="/styles.css?v=<?= $version ?>">
 </head>
 <body>
