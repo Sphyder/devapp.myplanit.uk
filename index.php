@@ -10,7 +10,7 @@ if (empty($_SESSION['survey_user'])) {
     exit;
 }
 
-define('APP_VERSION', '1.0.4');
+define('APP_VERSION', '1.0.5');
 define('APP_ENV', 'development'); // LIVE DEPLOYMENT: change to 'production'
 
 $version = APP_VERSION;
@@ -28,6 +28,7 @@ $is_dev  = APP_ENV === 'development';
     <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <title>BCOS</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">

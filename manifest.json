@@ -4,8 +4,8 @@
   "description": "Offline site survey tool for MC Plan & Site Services",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#727a27",
-  "theme_color": "#727a27",
+  "background_color": "#95AB4C",
+  "theme_color": "#95AB4C",
   "orientation": "portrait",
   "icons": [
     {
