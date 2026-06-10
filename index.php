@@ -10,7 +10,7 @@ if (empty($_SESSION['survey_user'])) {
     exit;
 }
 
-define('APP_VERSION', '1.1.3');
+define('APP_VERSION', '1.1.4');
 define('APP_ENV', 'development'); // LIVE DEPLOYMENT: change to 'production'
 
 $version = APP_VERSION;
